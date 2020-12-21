@@ -1,0 +1,3 @@
+class AstronautMission < ApplicationRecord
+
+end
