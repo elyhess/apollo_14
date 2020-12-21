@@ -83,5 +83,25 @@ describe "As a visitor" do
         expect(all('.mission')[1].text).to eq(@mission3.title)
       end
     end
+    
+    it 'I see total time in space for each astronaut' do
+      visit astronauts_path
+      
+      within("#astronaut-#{@astro1.id}") do
+        expect(page).to have_content("Total time in space: #{@astro1.total_time_in_space}")
+      end
+
+      within("#astronaut-#{@astro2.id}") do
+        expect(page).to have_content("Total time in space: #{@astro2.total_time_in_space}")
+      end
+
+      within("#astronaut-#{@astro3.id}") do
+        expect(page).to have_content("Total time in space: #{@astro3.total_time_in_space}")
+      end
+
+      within("#astronaut-#{@astro4.id}") do
+        expect(page).to have_content("Total time in space: #{@astro4.total_time_in_space}")
+      end
+    end
   end
 end
