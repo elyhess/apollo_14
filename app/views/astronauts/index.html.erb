@@ -6,7 +6,8 @@
     <h2><%= astronaut.name %></h2>
     <p>Age: <%= astronaut.age %></p>
     <p>Job: <%= astronaut.job %></p>
-
+    <p>Total time in space: <%= astronaut.total_time_in_space %></p>
+    
     <h3>Missions:</h3>
     <% astronaut.missions.sort_alphabetically.each do |mission| %>
       <p class='mission'><%= mission.title %></p>
