@@ -12,10 +12,13 @@ describe "As a visitor" do
       @mission2 = Mission.create!(title: "Mission to Moon", time_in_space: 1)
       @mission3 = Mission.create!(title: "Mission to Sun", time_in_space: 80)
 
-      @w = AstronautMission.create!(astronaut: @astro1, mission: @mission1)
-      @x = AstronautMission.create!(astronaut: @astro1, mission: @mission2)
-      @y = AstronautMission.create!(astronaut: @astro2, mission: @mission3)
-      @z = AstronautMission.create!(astronaut: @astro3, mission: @mission3)
+      @bob_mission1 = AstronautMission.create!(astronaut: @astro1, mission: @mission1)
+      @bob_mission2 = AstronautMission.create!(astronaut: @astro1, mission: @mission2)
+      @bob_mission3 = AstronautMission.create!(astronaut: @astro1, mission: @mission3)
+      @jill_mission3 = AstronautMission.create!(astronaut: @astro2, mission: @mission3)
+      @joe_mission3 = AstronautMission.create!(astronaut: @astro3, mission: @mission3)
+      @jill_mission3 = AstronautMission.create!(astronaut: @astro4, mission: @mission2)
+      @joe_mission3 = AstronautMission.create!(astronaut: @astro4, mission: @mission3)
     end
 
     it "I see a list of astronauts with the following info:" do
@@ -52,6 +55,33 @@ describe "As a visitor" do
       visit astronauts_path
       
       expect(page).to have_content("Average age: #{Astronaut.average_age}")
+    end
+
+    it 'I see each astronauts space missions in alphabetical order.' do
+      visit astronauts_path
+
+      within("#astronaut-#{@astro1.id}") do
+        expect(page).to have_content("Missions:")
+        expect(all('.mission')[0].text).to eq(@mission1.title)
+        expect(all('.mission')[1].text).to eq(@mission2.title)
+        expect(all('.mission')[2].text).to eq(@mission3.title)
+      end
+
+      within("#astronaut-#{@astro2.id}") do
+        expect(page).to have_content("Missions:")
+        expect(all('.mission')[0].text).to eq(@mission3.title)
+      end
+
+      within("#astronaut-#{@astro3.id}") do
+        expect(page).to have_content("Missions:")
+        expect(all('.mission')[0].text).to eq(@mission3.title)
+      end
+
+      within("#astronaut-#{@astro4.id}") do
+        expect(page).to have_content("Missions:")
+        expect(all('.mission')[0].text).to eq(@mission2.title)
+        expect(all('.mission')[1].text).to eq(@mission3.title)
+      end
     end
   end
 end
