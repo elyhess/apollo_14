@@ -61,20 +61,24 @@ describe "As a visitor" do
       visit astronauts_path
 
       within("#astronaut-#{@astro1.id}") do
+        expect(page).to have_content("Missions:")
         expect(all('.mission')[0].text).to eq(@mission1.title)
         expect(all('.mission')[1].text).to eq(@mission2.title)
         expect(all('.mission')[2].text).to eq(@mission3.title)
       end
 
       within("#astronaut-#{@astro2.id}") do
+        expect(page).to have_content("Missions:")
         expect(all('.mission')[0].text).to eq(@mission3.title)
       end
 
       within("#astronaut-#{@astro3.id}") do
+        expect(page).to have_content("Missions:")
         expect(all('.mission')[0].text).to eq(@mission3.title)
       end
 
       within("#astronaut-#{@astro4.id}") do
+        expect(page).to have_content("Missions:")
         expect(all('.mission')[0].text).to eq(@mission2.title)
         expect(all('.mission')[1].text).to eq(@mission3.title)
       end
